@@ -1,5 +1,6 @@
 package dk.lyngby.dto;
 
+import dk.lyngby.model.Plant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,13 +17,15 @@ public class PlantDTO {
     private int maxHeight;
     private float price;
 
-    public PlantDTO(int plantId, String plantType, String plantName, int maxHeight, float price) {
-        this.plantId = plantId;
-        this.plantType = plantType;
-        this.plantName = plantName;
-        this.maxHeight = maxHeight;
-        this.price = price;
+
+    public PlantDTO(Plant plant){
+        this.plantId = plant.getPlantId();
+        this.plantType = plant.getPlantType();
+        this.plantName = plant.getPlantName();
+        this.maxHeight = plant.getMaxHeight();
+        this.price = plant.getPrice();
     }
+
 /*public void setPlantId(int plantId) {
         this.plantId = plantId;
     }

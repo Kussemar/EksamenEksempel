@@ -12,6 +12,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class ExceptionController {
     public void exceptionHandlerNotAuthorized(AuthorizationException e, Context ctx) {
         LOGGER.error(ctx.attribute("requestInfo") + " " + ctx.res().getStatus() + " " + e.getMessage());
         ctx.status(e.getStatusCode());
-        ctx.json(new Message(e.getStatusCode(), e.getMessage()));
+        ctx.json(new Message(e.getStatusCode(), e.getMessage(), LocalDateTime.now()));
     }
 
     public void validationExceptionHandler(ValidationException e, Context ctx) {
@@ -52,18 +53,18 @@ public class ExceptionController {
     public void constraintViolationExceptionHandler(ConstraintViolationException e, Context ctx) {
         LOGGER.error(ctx.attribute("requestInfo") + " " + ctx.res().getStatus() + " " + ctx.body());
         ctx.status(500);
-        ctx.json(new Message(e.getErrorCode(), e.getSQLException().getMessage()));
+        ctx.json(new Message(e.getErrorCode(), e.getSQLException().getMessage(), LocalDateTime.now()));
     }
 
     public void apiExceptionHandler(ApiException e, Context ctx) {
         LOGGER.error(ctx.attribute("requestInfo") + " " + ctx.res().getStatus() + " " + e.getMessage());
         ctx.status(e.getStatusCode());
-        ctx.json(new Message(e.getStatusCode(), e.getMessage()));
+        ctx.json(new Message(e.getStatusCode(), e.getMessage(), LocalDateTime.now()));
     }
 
     public void exceptionHandler(Exception e, Context ctx) {
         LOGGER.error(ctx.attribute("requestInfo") + " " + ctx.res().getStatus() + " " + e.getMessage());
         ctx.status(500);
-        ctx.json(new Message(500, e.getMessage()));
+        ctx.json(new Message(500, e.getMessage(), LocalDateTime.now()));
     }
 }

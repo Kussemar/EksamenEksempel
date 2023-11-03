@@ -1,4 +1,4 @@
-/*package dk.lyngby.model;
+package dk.lyngby.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,10 +7,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "plants")
-@NamedQueries(@NamedQuery(name = "Plant.deleteAllRows", query = "DELETE from Plant"))
+// @NamedQueries(@NamedQuery(name = "Plant.deleteAllRows", query = "DELETE from Plant"))
 @Getter
 @NoArgsConstructor
 @Setter
@@ -31,8 +32,30 @@ public class Plant {
     private int maxHeight;
 
     @Column(name = "price")
-    private int price;
+    private float price;
+
+
+    @ManyToOne()
+    @JoinColumn(name = "reseller_id")
+    private Reseller reseller;
+
+    // Constructors, getters, setters, etc.
+
+
+    public Plant(String plantType, String plantName, int maxHeight, float price) {
+        this.plantType = plantType;
+        this.plantName = plantName;
+        this.maxHeight = maxHeight;
+        this.price = price;
+    }
+
+    public Reseller getReseller() {
+        return reseller;
+    }
+
+    public void setReseller(Reseller reseller) {
+        this.reseller = reseller;
+    }
 }
 
 
- */

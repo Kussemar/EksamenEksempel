@@ -1,4 +1,7 @@
 package dk.lyngby.exception;
 
-public record Message(int status, String message) {
+import java.time.LocalDateTime;
+
+public record Message(int status, String message, LocalDateTime timestamp){
+
 }

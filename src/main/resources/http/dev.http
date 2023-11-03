@@ -10,6 +10,10 @@ Authorization: Bearer {{token}}
 
 ###
 
+GET {{url}}/plants/10
+Authorization: Bearer {{token}}
+###
+
 GET {{url}}/plants/type/rose
 Authorization: Bearer {{token}}
 

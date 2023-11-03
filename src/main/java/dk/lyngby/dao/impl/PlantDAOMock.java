@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.Comparator;
 
 public class PlantDAOMock implements IPlantDAO {
 
@@ -59,7 +61,7 @@ public class PlantDAOMock implements IPlantDAO {
 
     @Override
     public void delete(Integer integer) {
-    mockDB.removeIf(plant -> plant.getPlantId() == integer);
+        mockDB.removeIf(plant -> plant.getPlantId() == integer);
     }
 
     @Override
@@ -86,14 +88,36 @@ public class PlantDAOMock implements IPlantDAO {
 
     private List<PlantDTO> populateMockDB() {
         ArrayList<PlantDTO> db = new ArrayList<>();
-        db.add(new PlantDTO(1, "Rose", "Albertine", 400, 199.5f));
-        db.add(new PlantDTO(2, "Bush", "Aronia", 400, 169.5f));
-        db.add(new PlantDTO(3, "FruitsAndBerries", "AromaApple", 350, 399.5f));
-        db.add(new PlantDTO(4, "Rhododendron", "Astrid", 40, 269.5f));
-        db.add(new PlantDTO(5, "Rose", "The DarkLady", 100, 199.5f));
+//        db.add(new PlantDTO(1, "Rose", "Albertine", 400, 199.5f));
+//        db.add(new PlantDTO(2, "Bush", "Aronia", 400, 169.5f));
+//        db.add(new PlantDTO(3, "FruitsAndBerries", "AromaApple", 350, 399.5f));
+//        db.add(new PlantDTO(4, "Rhododendron", "Astrid", 40, 269.5f));
+//        db.add(new PlantDTO(5, "Rose", "The DarkLady", 100, 199.5f));
 
         return db;
     }
+
+    public List<PlantDTO> getPlantsWithMaxHeightOf100cm() {
+        return mockDB.stream()
+                .filter(plant -> plant.getMaxHeight() <= 100)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getPlantNames() {
+        return mockDB.stream()
+                .map(PlantDTO::getPlantName)
+                .collect(Collectors.toList());
+
+    }
+
+
+    public List<PlantDTO> getPlantsSortedByName() {
+        return mockDB.stream()
+                .sorted(Comparator.comparing(PlantDTO::getPlantName))
+                .collect(Collectors.toList());
+    }
+
+
 }
 
 
